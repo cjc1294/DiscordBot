@@ -3,11 +3,11 @@ import asyncio
 import random
 import csv
 import requests
-from commands import *
+from commands import MANIFEST
 
 client = discord.Client()
 
-target='main'
+target='test'
 if target=='test':
 	heresyMark = '💯'
 	clientCode = 'MzU0Mzk4NDMyMTI0OTkzNTM2.DI9svQ.-S6HcYiht7GPLvvijLv4U_Y_nGs'
