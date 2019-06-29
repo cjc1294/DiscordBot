@@ -3,6 +3,7 @@ import asyncio
 import random
 import csv
 import requests
+from datetime import datetime
 from commands import MANIFEST
 
 client = discord.Client()
@@ -16,6 +17,12 @@ elif target=='main':
 	heresyMark = '<:Heresy:268495139876372480>'
 	clientCode = 'MzUxMDcyMzI5MzIyNzI1Mzkw.DINRIQ.JQCN2YE7kffKHP76BXI_O0y7GqU'
 	playText = discord.Game('with promethum')
+
+def log(text):
+        fileName = str(datetime.now().date())
+        fileName += " " + str(datetime.now().time()).replace(":", " ")
+        with open("logs/" + fileName + ".log", "w") as fd:
+                fd.write(text)
 
 @client.event
 async def on_ready():
@@ -32,22 +39,26 @@ async def on_reaction_add(reaction, user):
 
 @client.event
 async def on_message(message):
-        if message.author == client.user:
-                return
+        try:
+                if message.author == client.user:
+                        return
 
-        if message.content.startswith("!"):
-                if message.content.find(" ") != -1:
-                        command = message.content[1:message.content.find(" ")]
-                else:
-                        command = message.content[1:]
+                if message.content.startswith("!"):
+                        if message.content.find(" ") != -1:
+                                command = message.content[1:message.content.find(" ")]
+                        else:
+                                command = message.content[1:]
 
-                if command in MANIFEST:
-                        await MANIFEST[command](message)
+                        if command in MANIFEST:
+                                await MANIFEST[command](message)
 
-                if command in REFERENCES:
-                        await message.channel.send(REFERENCES[command])
+                        if command in REFERENCES:
+                                await message.channel.send(REFERENCES[command])
 
-                await message.delete()
+                        await message.delete()
+        except Exception as e:
+                log("[{}] Unhandled Exception: {}".format(message.guild.name, e))
+                raise e
 
 
 REFERENCES = {}
@@ -58,4 +69,8 @@ with open("References.csv") as refList:
 
 
 if __name__ == "__main__":
-        client.run(clientCode)
+        try:
+                client.run(clientCode)
+        except Exception as e:
+                log("Unhandled Exception: " + e)
+                raise e
