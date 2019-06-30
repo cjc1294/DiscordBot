@@ -70,7 +70,11 @@ with open("References.csv") as refList:
 
 if __name__ == "__main__":
         try:
-                client.run(clientCode)
+                while True:
+                        try:
+                                client.run(clientCode)
+                        except ConnectionResetError:
+                                pass
         except Exception as e:
                 log("Unhandled Exception: " + e)
                 raise e
