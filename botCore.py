@@ -18,7 +18,7 @@ elif TARGET == 'main':
 	CLIENT_CODE = 'MzUxMDcyMzI5MzIyNzI1Mzkw.DINRIQ.JQCN2YE7kffKHP76BXI_O0y7GqU'
 	PLAY_TEXT = discord.Game('with promethum')
 
-def log(text):
+def createErrorLog(text):
         fileName = str(datetime.now().date())
         fileName += " " + str(datetime.now().time()).replace(":", " ")
         with open("logs/" + fileName + ".log", "w") as fd:
@@ -57,7 +57,7 @@ async def on_message(message):
 
                         await message.delete()
         except Exception as e:
-                log("[{}] Unhandled Exception: {}".format(message.guild.name, e))
+                createErrorLog("[{}] Unhandled Exception: {}".format(message.guild.name, e))
                 raise e
 
 
@@ -77,5 +77,5 @@ if __name__ == "__main__":
                                 log("Connection reset, retrying")
                                 pass
         except Exception as e:
-                log("Unhandled Exception: " + e)
+                createErrorLog("Unhandled Exception: " + e)
                 raise e
