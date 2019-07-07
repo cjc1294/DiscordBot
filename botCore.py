@@ -74,6 +74,7 @@ if __name__ == "__main__":
                         try:
                                 client.run(CLIENT_CODE)
                         except ConnectionResetError:
+                                log("Connection reset, retrying")
                                 pass
         except Exception as e:
                 log("Unhandled Exception: " + e)
