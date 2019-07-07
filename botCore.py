@@ -17,12 +17,19 @@ elif TARGET == 'main':
 	HERESY_MARK = '<:Heresy:268495139876372480>'
 	CLIENT_CODE = 'MzUxMDcyMzI5MzIyNzI1Mzkw.DINRIQ.JQCN2YE7kffKHP76BXI_O0y7GqU'
 	PLAY_TEXT = discord.Game('with promethum')
+LOG_FILE_NAME = "bot.log"
 
 def createErrorLog(text):
         fileName = str(datetime.now().date())
         fileName += " " + str(datetime.now().time()).replace(":", " ")
         with open("logs/" + fileName + ".log", "w") as fd:
                 fd.write(text)
+
+def logPrint(text):
+        message = str(datetime.now().date()) + " " + str(datetime.now().time()) + " " + text
+        print(message)
+        with open(LOG_FILE_NAME, "a") as fd:
+                fd.write(message)
 
 @client.event
 async def on_ready():
@@ -74,7 +81,7 @@ if __name__ == "__main__":
                         try:
                                 client.run(CLIENT_CODE)
                         except ConnectionResetError:
-                                log("Connection reset, retrying")
+                                logPrint("Connection Reset")
                                 pass
         except Exception as e:
                 createErrorLog("Unhandled Exception: " + e)
