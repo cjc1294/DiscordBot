@@ -8,15 +8,15 @@ from commands import MANIFEST
 
 client = discord.Client()
 
-target='test'
-if target=='test':
-	heresyMark = '💯'
-	clientCode = 'MzU0Mzk4NDMyMTI0OTkzNTM2.DI9svQ.-S6HcYiht7GPLvvijLv4U_Y_nGs'
-	playText = discord.Game('with some code')
-elif target=='main':
-	heresyMark = '<:Heresy:268495139876372480>'
-	clientCode = 'MzUxMDcyMzI5MzIyNzI1Mzkw.DINRIQ.JQCN2YE7kffKHP76BXI_O0y7GqU'
-	playText = discord.Game('with promethum')
+TARGET = 'test'
+if TARGET == 'test':
+	HERESY_MARK = '💯'
+	CLIENT_CODE = 'MzU0Mzk4NDMyMTI0OTkzNTM2.DI9svQ.-S6HcYiht7GPLvvijLv4U_Y_nGs'
+	PLAY_TEXT = discord.Game('with some code')
+elif TARGET == 'main':
+	HERESY_MARK = '<:Heresy:268495139876372480>'
+	CLIENT_CODE = 'MzUxMDcyMzI5MzIyNzI1Mzkw.DINRIQ.JQCN2YE7kffKHP76BXI_O0y7GqU'
+	PLAY_TEXT = discord.Game('with promethum')
 
 def log(text):
         fileName = str(datetime.now().date())
@@ -27,11 +27,11 @@ def log(text):
 @client.event
 async def on_ready():
         print("Logged in as", client.user.name)
-        await client.change_presence(activity=playText)
+        await client.change_presence(activity = PLAY_TEXT)
 
 @client.event
 async def on_reaction_add(reaction, user):
-        if str(reaction.emoji) == heresyMark:
+        if str(reaction.emoji) == HERESY_MARK:
                 heresyMessage = str(reaction.message.id)
                 with open(reaction.message.guild.name + "/heresyFiles.txt", "a") as fd:
                         fd.write(heresyMessage + "\n")
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         try:
                 while True:
                         try:
-                                client.run(clientCode)
+                                client.run(CLIENT_CODE)
                         except ConnectionResetError:
                                 pass
         except Exception as e:
