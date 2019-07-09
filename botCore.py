@@ -35,7 +35,7 @@ def logPrint(text):
 
 @client.event
 async def on_ready():
-        print("Logged in as", client.user.name)
+        logPrint("Logged in as " + client.user.name)
         await client.change_presence(activity = PLAY_TEXT)
 
 @client.event
@@ -59,9 +59,11 @@ async def on_message(message):
                                 command = message.content[1:]
 
                         if command in MANIFEST:
+                                logPrint(str(message.author) + ": " + message.content)
                                 await MANIFEST[command](message)
 
                         if command in REFERENCES:
+                                logPrint(str(message.author) + ": " + message.content)
                                 await message.channel.send(REFERENCES[command])
 
                         await message.delete()
