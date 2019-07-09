@@ -18,6 +18,8 @@ elif TARGET == 'main':
 	CLIENT_CODE = 'MzUxMDcyMzI5MzIyNzI1Mzkw.DINRIQ.JQCN2YE7kffKHP76BXI_O0y7GqU'
 	PLAY_TEXT = discord.Game('with promethum')
 LOG_FILE_NAME = "bot.log"
+with open(LOG_FILE_NAME, "w"):
+        pass
 
 def createErrorLog(text):
         fileName = str(datetime.now().date())
@@ -29,7 +31,7 @@ def logPrint(text):
         message = str(datetime.now().date()) + " " + str(datetime.now().time()) + " " + text
         print(message)
         with open(LOG_FILE_NAME, "a") as fd:
-                fd.write(message)
+                fd.write(message + "\n")
 
 @client.event
 async def on_ready():
