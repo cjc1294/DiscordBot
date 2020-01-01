@@ -22,6 +22,9 @@ with open(LOG_FILE_NAME, "w"):
         pass
 
 def createErrorLog(text):
+        """
+        Create a log in the logs directory
+        """
         fileName = str(datetime.now().date())
         fileName += " " + str(datetime.now().time()).replace(":", " ")
         with open("logs/" + fileName + ".log", "w") as fd:

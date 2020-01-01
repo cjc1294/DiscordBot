@@ -158,11 +158,15 @@ async def blam(message):
                                 await message.channel.send("Target not found")
 
         if len(targetList) > 0:
-                target = await message.channel.get_message(int(targetList.pop()))
                 try:
-                        await target.delete()
+                        target = await message.channel.fetch_message(int(targetList.pop()))
+                        try:
+                                await target.delete()
+                        except discord.errors.NotFound:
+                                await message.channel.send("Target missed")
                 except discord.errors.NotFound:
-                        await message.channel.send("Target missed")
+                        await message.channel.send("Target not found")
+                
 
         with open(message.guild.name + "/heresyFiles.txt", "w") as fd:
                 for target in targetList:
