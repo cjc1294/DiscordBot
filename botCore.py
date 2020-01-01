@@ -2,7 +2,6 @@ import discord
 import asyncio
 import random
 import csv
-import requests
 from datetime import datetime
 from commands import MANIFEST
 
