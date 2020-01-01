@@ -27,8 +27,11 @@ def createErrorLog(text):
         with open("logs/" + fileName + ".log", "w") as fd:
                 fd.write(text)
 
-def logPrint(text):
-        message = str(datetime.now().date()) + " " + str(datetime.now().time()) + " " + text
+def logPrint(text, includeTime=True):
+        if includeTime:
+                message = str(datetime.now().date()) + " " + str(datetime.now().time()) + " " + text
+        else:
+                message = text
         print(message)
         with open(LOG_FILE_NAME, "a") as fd:
                 fd.write(message + "\n")
