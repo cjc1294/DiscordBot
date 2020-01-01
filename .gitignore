@@ -1,4 +1,5 @@
 bot.code-workspace
+.vscode
 __pycache__
 Bot Testing Land
 Pretty Cool Server
@@ -7,3 +8,4 @@ helplist.csv
 References.csv
 logs
 bot.log
+settings.txt
