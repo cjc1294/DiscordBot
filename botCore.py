@@ -5,16 +5,13 @@ import csv
 from datetime import datetime
 from commands import MANIFEST
 
+LOG_FILE_NAME = "bot.log"
+SETTINGS_FILE_NAME = "settings.txt"
+CLIENT_CODE = ""
+HERESY_MARK = ""
+PLAY_TEXT = ""
 client = discord.Client()
 
-TARGET = 'test'
-if TARGET == 'test':
-	HERESY_MARK = '💯'
-	PLAY_TEXT = discord.Game('with some code')
-elif TARGET == 'main':
-	HERESY_MARK = '<:Heresy:268495139876372480>'
-	PLAY_TEXT = discord.Game('with promethum')
-LOG_FILE_NAME = "bot.log"
 with open(LOG_FILE_NAME, "w"):
         pass
 
@@ -81,8 +78,29 @@ with open("References.csv") as refList:
         for row in refListCSV:
                 REFERENCES[row[0]] = row[1]
 
+def main():
+        global CLIENT_CODE
+        global HERESY_MARK
+        global PLAY_TEXT
 
-if __name__ == "__main__":
+        try:
+                with open(SETTINGS_FILE_NAME, "r") as fd:
+                        for line in fd:
+                                tokens = line.split("=")
+                                if tokens[0] == "client code":
+                                        CLIENT_CODE = tokens[1].strip()
+                                elif tokens[0] == "heresy mark":
+                                        HERESY_MARK = tokens[1].strip()
+                                elif tokens[0] == "playing text":
+                                        PLAY_TEXT = discord.Game(tokens[1])
+                if CLIENT_CODE == "" or HERESY_MARK == "":
+                        logPrint("ERROR: Required settings are missing. Please make sure the client code and heresy mark are set", includeTime=False)
+                        return
+        except Exception as ex:
+                logPrint("ERROR: Error in settings file, please check to ensure it is correct. If unsure, delete the settings file and it will be regenerated on next run.", includeTime=False)
+                raise ex
+                return
+
         try:
                 while True:
                         try:
@@ -93,3 +111,6 @@ if __name__ == "__main__":
         except Exception as e:
                 createErrorLog("Unhandled Exception: " + e)
                 raise e
+
+if __name__ == "__main__":
+        main()
