@@ -10,11 +10,9 @@ client = discord.Client()
 TARGET = 'test'
 if TARGET == 'test':
 	HERESY_MARK = '💯'
-	CLIENT_CODE = 'MzU0Mzk4NDMyMTI0OTkzNTM2.DI9svQ.-S6HcYiht7GPLvvijLv4U_Y_nGs'
 	PLAY_TEXT = discord.Game('with some code')
 elif TARGET == 'main':
 	HERESY_MARK = '<:Heresy:268495139876372480>'
-	CLIENT_CODE = 'MzUxMDcyMzI5MzIyNzI1Mzkw.DINRIQ.JQCN2YE7kffKHP76BXI_O0y7GqU'
 	PLAY_TEXT = discord.Game('with promethum')
 LOG_FILE_NAME = "bot.log"
 with open(LOG_FILE_NAME, "w"):
