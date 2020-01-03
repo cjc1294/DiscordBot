@@ -96,7 +96,7 @@ def main():
         
         if not os.path.exists("settings.txt"):
                 with open("settings.txt", "w") as fd:
-                        fd.write("client code=\nheresy mark=\nplaying text=with promethium")
+                        fd.write("client code=\nheresy mark=<:100:>\nplaying text=with promethium")
                 logPrint("Settings.txt file created. Fill all fields and then rerun the bot.")
                 return
 
@@ -113,6 +113,8 @@ def main():
                                         CLIENT_CODE = tokens[1].strip()
                                 elif tokens[0] == "heresy mark":
                                         HERESY_MARK = tokens[1].strip()
+                                        if HERESY_MARK == "<:100:>":
+                                                HERESY_MARK = "💯"
                                 elif tokens[0] == "playing text":
                                         PLAY_TEXT = discord.Game(tokens[1])
                 if CLIENT_CODE == "" or HERESY_MARK == "":
