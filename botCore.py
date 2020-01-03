@@ -22,7 +22,7 @@ def createErrorLog(text):
         """
         if not os.path.isdir("logs"):
                 os.mkdir("logs")
-                
+
         fileName = str(datetime.now().date())
         fileName += " " + str(datetime.now().time()).replace(":", " ")
         with open("logs/" + fileName + ".log", "w") as fd:
@@ -89,7 +89,7 @@ def main():
         global PLAY_TEXT
 
         if not os.path.exists("References.csv"):
-                with open("References.csv") as fd:
+                with open("References.csv", "w") as fd:
                         pass
                 logPrint("References.csv file created. Add references with the format \"command,text\" where command is the command trigger and text is the text for the bot to respond with.")
         
