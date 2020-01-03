@@ -20,6 +20,9 @@ def createErrorLog(text):
         """
         Create a log in the logs directory
         """
+        if not os.path.isdir("logs"):
+                os.mkdir("logs")
+                
         fileName = str(datetime.now().date())
         fileName += " " + str(datetime.now().time()).replace(":", " ")
         with open("logs/" + fileName + ".log", "w") as fd:
@@ -80,18 +83,29 @@ async def on_message(message):
                 raise e
 
 
-REFERENCES = {}
-with open("References.csv") as refList:
-        refListCSV = csv.reader(refList)
-        for row in refListCSV:
-                REFERENCES[row[0]] = row[1]
-
 def main():
         global CLIENT_CODE
         global HERESY_MARK
         global PLAY_TEXT
 
+        if not os.path.exists("References.csv"):
+                with open("References.csv") as fd:
+                        pass
+                logPrint("References.csv file created. Add references with the format \"command,text\" where command is the command trigger and text is the text for the bot to respond with.")
+        
+        if not os.path.exists("settings.txt"):
+                with open("settings.txt", "w") as fd:
+                        fd.write("client code=\nheresy mark=\nplaying text=with promethium")
+                logPrint("Settings.txt file created. Fill all fields and then rerun the bot.")
+                return
+
         try:
+                REFERENCES = {}
+                with open("References.csv") as refList:
+                        refListCSV = csv.reader(refList)
+                        for row in refListCSV:
+                                REFERENCES[row[0]] = row[1]
+
                 with open(SETTINGS_FILE_NAME, "r") as fd:
                         for line in fd:
                                 tokens = line.split("=")
