@@ -2,6 +2,7 @@ import discord
 import asyncio
 import random
 import csv
+import os
 from datetime import datetime
 from commands import MANIFEST
 
@@ -51,6 +52,13 @@ async def on_message(message):
         try:
                 if message.author == client.user:
                         return
+
+                if not os.path.isdir(message.guild.name):
+                        os.mkdir(message.guild.name)
+                        with open(message.guild.name + "/count.txt", "w") as fd:
+                                fd.write("0")
+                        with open(message.guild.name + "/heresyFiles.txt", "w"):
+                                pass
 
                 if message.content.startswith("!"):
                         if message.content.find(" ") != -1:
