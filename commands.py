@@ -136,8 +136,11 @@ async def note(message):
                 await message.channel.send("Noted")
 
         else:
-                with open(message.guild.name + "/" + str(message.author) + ".txt", "r") as fd:
-                        await message.channel.send("Your note is: '" + fd.read() + "'")
+                try:
+                        with open(message.guild.name + "/" + str(message.author) + ".txt", "r") as fd:
+                                await message.channel.send("Your note is: '" + fd.read() + "'")
+                except FileNotFoundError:
+                        await message.channel.send("No note found")
 
 
 async def blam(message):
