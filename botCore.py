@@ -11,6 +11,7 @@ SETTINGS_FILE_NAME = "settings.txt"
 CLIENT_CODE = ""
 HERESY_MARK = ""
 PLAY_TEXT = ""
+REFERENCES = {}
 client = discord.Client()
 
 with open(LOG_FILE_NAME, "w"):
@@ -100,7 +101,6 @@ def main():
                 return
 
         try:
-                REFERENCES = {}
                 with open("References.csv") as refList:
                         refListCSV = csv.reader(refList)
                         for row in refListCSV:
