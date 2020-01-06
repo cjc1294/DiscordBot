@@ -133,7 +133,7 @@ def main():
                                 logPrint("Connection Reset")
                                 pass
         except Exception as e:
-                createErrorLog("Unhandled Exception: " + e)
+                createErrorLog("Unhandled Exception: " + str(e))
                 raise e
 
 if __name__ == "__main__":
