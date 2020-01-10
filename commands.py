@@ -5,7 +5,7 @@ import csv
 
 async def remind(message):
         """
-
+        After some number of minutes, remind the caller, with or without a custom message
         """
         args = message.content[message.content.find(" ") + 1:]
         args = args.split()
@@ -22,6 +22,9 @@ async def remind(message):
 
 
 async def roll(message):
+        """
+        Roll some number of dice with an arbitrary number of sides
+        """
         if message.content.find("d") == -1:
                 await message.channel.send("Rolling is done with \"!roll <# of dice>d<sides of dice>\"")
                 return
@@ -125,10 +128,16 @@ async def roll(message):
 
 
 async def author(message):
+        """
+        Reply with the caller's name
+        """
         await message.channel.send(message.author)
 
 
 async def note(message):
+        """
+        If called alone, return the caller's note. If called with additional arguements, set the caller's note as those arguements
+        """
         if message.content.find(" ") != -1:
                 args = message.content[message.content.find(" ") + 1:]
                 with open(message.guild.name + "/" + str(message.author) + ".txt", "w") as fd:
@@ -144,6 +153,9 @@ async def note(message):
 
 
 async def blam(message):
+        """
+        Delete a message marked with the heresy symbol, if any exist, and increment and return a counter
+        """
         with open(message.guild.name + "/count.txt") as fd:
                 count = int(fd.read())
         with open(message.guild.name + "/count.txt", "w") as fd:
