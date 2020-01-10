@@ -2,6 +2,7 @@ import discord
 import asyncio
 import random
 import csv
+import re
 
 async def remind(message):
         """
@@ -184,10 +185,44 @@ async def blam(message):
                         fd.write(target + "\n")
 
 
+async def poll(message):
+        """
+        Create a poll message. Modeled after https://simplepoll.rho.sh/
+        """
+        #Match strings beginning and ending with quotes
+        args = re.findall("\".+?\"", message.content)
+        #Strip quotes off args
+        for i in range(len(args)):
+                args[i] = args[i][1:-1]
+
+        if len(args) > 28:
+                await message.channel.send("Error: maximum number of poll options is 26")
+                return
+        
+        if len(args) < 2:
+                await message.channel.send("Invalid number of arguements for poll")
+                return
+
+        optionEmotes = []
+        for letter in "abcdefghijklmnopqrstuvwxyz":
+                optionEmotes.append(":regional_indicator_{}:".format(letter))
+        
+        contents = "**{}**\n".format(args[0])
+        contents += ">>> "
+        for i in range(1, len(args)):
+                contents += optionEmotes[i-1] + args[i] + "\n"
+
+        pollMessage = await message.channel.send(contents)
+
+        for i in range(len(args) - 1):
+                await pollMessage.add_reaction(chr(ord("\U0001f1E6") + i))
+
+
 MANIFEST = {
         "remind":remind,
         "roll":roll,
         "author":author,
         "note":note,
-        "blam":blam
+        "blam":blam,
+        "poll":poll
         }
