@@ -166,10 +166,7 @@ async def blam(message):
         targetList = []
         with open(message.guild.name + "/heresyFiles.txt") as fd:
                 for line in fd:
-                        try: 
-                                targetList.append(line.strip())
-                        except discord.errors.NotFound:
-                                await message.channel.send("Target not found")
+                        targetList.append(line.strip())
 
         if len(targetList) > 0:
                 try:
