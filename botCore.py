@@ -132,6 +132,11 @@ def main():
                         except ConnectionResetError:
                                 logPrint("Connection Reset")
                                 pass
+                        except RuntimeError as re:
+                                if re.args[0] == "Event loop is closed":
+                                        logPrint("Bot shutting down")
+                                else:
+                                        raise ex
         except Exception as e:
                 createErrorLog("Unhandled Exception: " + str(e))
                 raise e
