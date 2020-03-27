@@ -135,6 +135,7 @@ def main():
                         except RuntimeError as re:
                                 if re.args[0] == "Event loop is closed":
                                         logPrint("Bot shutting down")
+                                        return
                                 else:
                                         raise ex
         except Exception as e:
