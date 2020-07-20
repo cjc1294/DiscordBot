@@ -138,6 +138,9 @@ def main():
                                         return
                                 else:
                                         raise ex
+                        except socket.gaierror:
+                                await asyncio.sleep(2)
+
         except Exception as e:
                 createErrorLog("Unhandled Exception: " + str(e))
                 raise e
