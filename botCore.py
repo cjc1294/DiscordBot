@@ -3,8 +3,12 @@ import asyncio
 import random
 import csv
 import os
+import time
+import socket
 from datetime import datetime
 from commands import MANIFEST
+
+FAILS = 0
 
 LOG_FILE_NAME = "bot.log"
 SETTINGS_FILE_NAME = "settings.txt"
@@ -40,6 +44,7 @@ def logPrint(text, includeTime=True):
 
 @client.event
 async def on_ready():
+        FAILS = 0
         logPrint("Logged in as " + client.user.name)
         await client.change_presence(activity = PLAY_TEXT)
 
@@ -127,19 +132,24 @@ def main():
 
         try:
                 while True:
+                        if FAILS >= 5:
+                                logPrint("Number of fails exceeded, shutting down")
+                                return
                         try:
                                 client.run(CLIENT_CODE)
                         except ConnectionResetError:
                                 logPrint("Connection Reset")
-                                pass
+                                FAILS += 1
                         except RuntimeError as re:
                                 if re.args[0] == "Event loop is closed":
                                         logPrint("Bot shutting down")
                                         return
                                 else:
                                         raise ex
+                                FAILS += 1
                         except socket.gaierror:
-                                await asyncio.sleep(2)
+                                FAILS += 1
+                                time.sleep(2)
 
         except Exception as e:
                 createErrorLog("Unhandled Exception: " + str(e))
