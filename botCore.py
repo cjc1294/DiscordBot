@@ -144,11 +144,9 @@ def main():
                                 FAILS += 1
                         except RuntimeError as re:
                                 if re.args[0] == "Event loop is closed":
-                                        logPrint("Bot shutting down")
-                                        return
+                                        FAILS += 1
                                 else:
                                         raise re
-                                FAILS += 1
                         except (socket.gaierror, aiohttp.client_exceptions.ClientConnectorError):
                                 FAILS += 1
                                 time.sleep(2)
