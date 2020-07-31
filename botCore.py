@@ -147,7 +147,7 @@ def main():
                                         logPrint("Bot shutting down")
                                         return
                                 else:
-                                        raise ex
+                                        raise re
                                 FAILS += 1
                         except (socket.gaierror, aiohttp.client_exceptions.ClientConnectorError):
                                 FAILS += 1
