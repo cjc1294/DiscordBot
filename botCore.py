@@ -145,6 +145,7 @@ def main():
                         except RuntimeError as re:
                                 if re.args[0] == "Event loop is closed":
                                         FAILS += 1
+                                        time.sleep(2)
                                 else:
                                         raise re
                         except (socket.gaierror, aiohttp.client_exceptions.ClientConnectorError):
