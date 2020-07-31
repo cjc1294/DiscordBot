@@ -5,6 +5,7 @@ import csv
 import os
 import time
 import socket
+import aiohttp
 from datetime import datetime
 from commands import MANIFEST
 
@@ -148,7 +149,7 @@ def main():
                                 else:
                                         raise ex
                                 FAILS += 1
-                        except socket.gaierror:
+                        except (socket.gaierror, aiohttp.client_exceptions.ClientConnectorError):
                                 FAILS += 1
                                 time.sleep(2)
 
