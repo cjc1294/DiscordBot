@@ -142,7 +142,7 @@ def main():
                                 logPrint("Connection Reset")
                                 FAILS += 1
                         except RuntimeError as re:
-                                if re.args[0] == "Event loop stopped before Future completed":
+                                if re.args[0] == "Event loop stopped before Future completed.":
                                         logPrint("Bot shutting down")
                                         return
                                 else:
