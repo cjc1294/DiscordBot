@@ -6,6 +6,7 @@ import os
 import time
 import socket
 import aiohttp
+import logging
 from datetime import datetime
 from commands import MANIFEST
 
@@ -22,17 +23,15 @@ client = discord.Client()
 with open(LOG_FILE_NAME, "w"):
         pass
 
-def createErrorLog(text):
-        """
-        Create a log in the logs directory
-        """
-        if not os.path.isdir("logs"):
-                os.mkdir("logs")
 
-        fileName = str(datetime.now().date())
-        fileName += " " + str(datetime.now().time()).replace(":", " ")
-        with open("logs/" + fileName + ".log", "w") as fd:
-                fd.write(text)
+def logException(text):
+        filename = str(datetime.now().date())
+        filename += " " + str(datetime.now().time()).replace(":", " ")
+        filename += ".log"
+        logging.basicConfig(filename="logs/" + filename, filemode='w', format="%(message)s")
+        logger = logging.getLogger(__name__)
+        logger.exception(text)
+
 
 def logPrint(text, includeTime=True):
         if includeTime:
@@ -86,7 +85,7 @@ async def on_message(message):
 
                         await message.delete()
         except Exception as e:
-                createErrorLog("[{}] Unhandled Exception: {}".format(message.guild.name, e))
+                logException("[{}] Unhandled Exception:".format(message.guild.name))
                 raise e
 
 
@@ -153,7 +152,7 @@ def main():
                                 time.sleep(2)
 
         except Exception as e:
-                createErrorLog("Unhandled Exception: " + str(e))
+                logException("Unhandled Exception:")
                 raise e
 
 if __name__ == "__main__":
