@@ -147,6 +147,7 @@ def main():
                                         return
                                 elif re.args[0] == "Event loop is closed":
                                         logPrint("Event loop closed")
+                                        client = discord.Client()
                                         FAILS += 1
                                         time.sleep(2)
                                 else:
