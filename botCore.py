@@ -94,6 +94,7 @@ def main():
         global HERESY_MARK
         global PLAY_TEXT
         global FAILS
+        global client
 
         if not os.path.exists("References.csv"):
                 with open("References.csv", "w") as fd:
