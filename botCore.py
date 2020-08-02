@@ -143,14 +143,9 @@ def main():
                                 logPrint("Connection Reset")
                                 FAILS += 1
                         except RuntimeError as re:
-                                if re.args[0] == "Event loop stopped before Future completed.":
+                                if re.args[0] == "Event loop stopped before Future completed." or re.args[0] == "Event loop is closed":
                                         logPrint("Bot shutting down")
                                         return
-                                elif re.args[0] == "Event loop is closed":
-                                        logPrint("Event loop closed")
-                                        client = discord.Client()
-                                        FAILS += 1
-                                        time.sleep(2)
                                 else:
                                         raise re
                         except (socket.gaierror, aiohttp.client_exceptions.ClientConnectorError):
