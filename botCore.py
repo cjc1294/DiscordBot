@@ -100,7 +100,7 @@ def main():
                 with open("References.csv", "w") as fd:
                         pass
                 logPrint("References.csv file created. Add references with the format \"command,text\" where command is the command trigger and text is the text for the bot to respond with.")
-        
+
         if not os.path.exists("settings.txt"):
                 with open("settings.txt", "w") as fd:
                         fd.write("client code=\nheresy mark=<:100:>\nplaying text=with promethium")
